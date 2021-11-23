@@ -1,0 +1,10 @@
+{
+  "name": "http-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@cellularjs/di": "../cellularjs/packages/di",
+    "@cellularjs/net": "../cellularjs/packages/net/"
+  }
+}
