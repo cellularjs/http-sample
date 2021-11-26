@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "dist",
     "baseUrl": "./src",
     "sourceMap": true,
@@ -21,5 +21,9 @@
       "@cell/*": ["*"],
       "@share/*": ["$share/*"]
     }
-  }
+  },
+  "includes": [
+    "./src/**/*",
+    "./tests/**/*"
+  ]
 }

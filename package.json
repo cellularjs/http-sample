@@ -4,14 +4,23 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "cmd:build": "tsc -b ./tsconfig.json"
+    "build": "webpack"
   },
   "dependencies": {
     "@cellularjs/di": "../cellularjs/packages/di",
-    "@cellularjs/net": "../cellularjs/packages/net/"
+    "@cellularjs/net": "../cellularjs/packages/net/",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "@types/node": "^16.11.10",
-    "typescript": "^4.5.2"
+    "@types/webpack": "^5.28.0",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-node-externals": "^3.0.0",
+    "webpackbar": "^5.0.2"
   }
 }
