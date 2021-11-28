@@ -4,6 +4,7 @@ import { Program } from 'typescript'
 import { cellTransformer } from './utillity/cell-transformer'
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 const WebpackBar = require('webpackbar');
 
 const {
@@ -52,6 +53,15 @@ module.exports = {
   externals: [nodeExternals()],
   plugins: [
     new WebpackBar(),
+    new NodemonPlugin(),
+    // new NodemonPlugin({
+    //   ext: 'js',
+    //   script: './dist/yo/index.js',
+    // }),
+    // new NodemonPlugin({
+    //   ext: 'js',
+    //   script: './dist/lo/index.js',
+    // }),
   ],
-  stats: 'none',
+  stats: 'none'
 }
