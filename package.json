@@ -11,10 +11,12 @@
     "@cellularjs/di": "../cellularjs/packages/di",
     "@cellularjs/net": "../cellularjs/packages/net/",
     "express": "^4.17.1",
+    "pg": "^8.7.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^16.11.10",
+    "@types/pg": "^8.6.1",
     "@types/webpack": "^5.28.0",
     "nodemon-webpack-plugin": "^4.6.0",
     "ts-loader": "^9.2.6",
