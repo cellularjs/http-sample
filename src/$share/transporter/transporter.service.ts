@@ -1,8 +1,6 @@
 import { Injectable } from '@cellularjs/di';
 import { send, CellContext, getResolvedCell, IRQ, LOCAL_DRIVER } from '@cellularjs/net';
-
-const CORR_ID_HEADER = 'id';
-let dummyIdCount = 0;
+import { TRACE_ID_KEY } from '$share/const'
 
 @Injectable()
 export class Transporter {
@@ -22,35 +20,38 @@ export class Transporter {
       });
 
     } catch (errIrs) {
-      console.log(errIrs)
-      if (errIrs.header[CORR_ID_HEADER]) {
+      if (!errIrs.header) {
+        throw errIrs;
+      }
+
+      if (errIrs.header[TRACE_ID_KEY]) {
         throw errIrs;
       }
 
       throw errIrs.withHeaderItem(
-        CORR_ID_HEADER,
-        irqWithId.header[CORR_ID_HEADER],
+        TRACE_ID_KEY,
+        irqWithId.header[TRACE_ID_KEY],
       );
     }
   }
 
   private requestWithId(irq: IRQ) {
-    if (irq.header[CORR_ID_HEADER]) {
+    if (irq.header[TRACE_ID_KEY]) {
       return irq;
     }
 
-    if (!this.inCommingIrq?.header[CORR_ID_HEADER]) {
-      return irq.withHeaderItem(CORR_ID_HEADER, dummyIdCount += 1);
-    }
+    // if (!this.inCommingIrq?.header[TRACE_ID_KEY]) {
+    //   return irq.withHeaderItem(TRACE_ID_KEY, uuidv4());
+    // }
 
     return irq.withHeaderItem(
-      CORR_ID_HEADER,
-      this.inCommingIrq.header[CORR_ID_HEADER],
+      TRACE_ID_KEY,
+      this.inCommingIrq.header[TRACE_ID_KEY],
     );
   }
 
   private specifyDriver(irq: IRQ) {
-    if (!this.cellCtx ) {
+    if (!this.cellCtx) {
       return LOCAL_DRIVER;
     }
 
