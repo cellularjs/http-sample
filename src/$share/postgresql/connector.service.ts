@@ -8,7 +8,7 @@ export class Connector {
   ) { }
 
   connect() {
-    return this.poolHolder.pgPool.connect();
+    return this.poolHolder.originalPool.connect();
   }
 };
 

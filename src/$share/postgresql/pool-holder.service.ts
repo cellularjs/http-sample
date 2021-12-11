@@ -4,10 +4,10 @@ import { PoolConfig } from './key.const'
 
 @Injectable()
 export class PoolHolder {
-  public readonly pgPool: Pool;
+  public readonly originalPool: Pool;
 
   constructor(poolConfig: PoolConfig) {
-    this.pgPool = new Pool(poolConfig);
+    this.originalPool = new Pool(poolConfig);
   }
 };
 
