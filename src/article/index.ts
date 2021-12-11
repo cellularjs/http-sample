@@ -1,0 +1,1 @@
+export { ArticleCell } from './article.cell';
