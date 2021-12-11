@@ -23,7 +23,7 @@ export function scanRelTsFiles(dir: string, relativeDir: string): string[] {
       const file = listNewFiles[i];
       const isValidTsFile =
         file.lastIndexOf('.js') + 3 === file.length ||
-        (file.lastIndexOf('d.ts') === -1 && file.lastIndexOf('.ts') + 3 === file.length);
+        (file.lastIndexOf('.d.ts') === -1 && file.lastIndexOf('.ts') + 3 === file.length);
 
       if (!isValidTsFile) {
         continue;
