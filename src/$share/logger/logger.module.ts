@@ -1,19 +1,24 @@
-import { Module, ExtModuleMeta } from '@cellularjs/di';
+import { Module, ExtModuleMeta, OnInit } from '@cellularjs/di';
 import { transportEmitter } from '@cellularjs/net'
 
 @Module({
-  providers: [],
+  providers: [
+    // ...
+  ],
 })
-export class LoggerModule {
+export class LoggerModule implements OnInit {
   static config(): ExtModuleMeta {
-    this.addTransportLog();
-
     return {
       extModule: LoggerModule,
+      // ...
     }
   }
 
-  private static addTransportLog() {
+  onInit() {
+    this.addTransportLog();
+  }
+
+  private addTransportLog() {
     transportEmitter.on('start', (ctx) => {
       const { id, to } = ctx.irq.header;
       ctx.startTime = process.hrtime();
