@@ -1,7 +1,7 @@
 import { Injectable } from '@cellularjs/di';
 import { ServiceHandler, addServiceProviders, addServiceProxies } from '@cellularjs/net';
 import { Client } from './key.const';
-import { Connector } from './connector.service';
+import { PoolService } from './pool.service';
 
 @Injectable()
 class TransactionProxy implements ServiceHandler {
@@ -37,8 +37,8 @@ export const Transaction = () => service => {
   addServiceProviders(service, [
     {
       token: Client,
-      useFunc: (connector: Connector) => connector.connect(),
-      deps: [Connector],
+      useFunc: (poolService: PoolService) => poolService.pool.connect(),
+      deps: [PoolService],
       cycle: 'permanent',
     },
   ]);
