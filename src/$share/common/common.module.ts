@@ -1,7 +1,7 @@
-import { Module } from '@cellularjs/di';
+import { Module, OnInit } from '@cellularjs/di';
 import { LoggerModule } from '@share/logger';
 import { TransporterModule } from '@share/transporter';
-import { PostgresqlModule } from '@share/postgresql';
+import { PostgresqlModule, PoolService } from '@share/postgresql';
 
 @Module({
   exports: [
@@ -16,4 +16,19 @@ import { PostgresqlModule } from '@share/postgresql';
     }),
   ],
 })
-export class CommonModule { }
+export class CommonModule implements OnInit {
+  constructor(
+    private poolService: PoolService,
+  ) { }
+
+  async onInit() {
+    await this.checkDbConnect();
+  }
+
+  private async checkDbConnect() {
+    const client = await this.poolService.pool.connect();
+    client.release();
+
+    console.log('Connect to database successfully!')
+  }
+}
