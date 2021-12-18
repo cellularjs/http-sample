@@ -1,5 +1,5 @@
 import { Injectable } from '@cellularjs/di';
-import { ServiceHandler, addServiceProviders, addServiceProxies } from '@cellularjs/net';
+import { ServiceHandler, addServiceProviders, addServiceProxies, NextHandler } from '@cellularjs/net';
 import { Client } from './key.const';
 import { PoolService } from './pool.service';
 
@@ -7,16 +7,16 @@ import { PoolService } from './pool.service';
 class TransactionProxy implements ServiceHandler {
   constructor(
     private client: Client,
-    private handler: ServiceHandler,
+    private nextHandler: NextHandler,
   ) { }
 
   async handle() {
-    const { client, handler } = this;
+    const { client, nextHandler } = this;
 
     try {
       await client.query('BEGIN');
 
-      const irs = await handler.handle();
+      const irs = await nextHandler.exec();
 
       await client.query('COMMIT');
 
@@ -31,6 +31,9 @@ class TransactionProxy implements ServiceHandler {
   }
 }
 
+/**
+ * TODO: support something like isolation level, ...
+ */
 export const Transaction = () => service => {
   // Client object will be available in a single request.
   // You can inject and use it inside your service/repository.
