@@ -11,6 +11,8 @@
     "@cellularjs/di": "../cellularjs/packages/di",
     "@cellularjs/net": "../cellularjs/packages/net/",
     "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.2.0",
     "pg": "^8.7.1",
     "uuid": "^8.3.2"
   },
