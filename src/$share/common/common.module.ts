@@ -1,7 +1,7 @@
 import { Module, OnInit } from '@cellularjs/di';
-import { LoggerModule } from '@share/logger';
-import { TransporterModule } from '@share/transporter';
-import { PostgresqlModule, PoolService } from '@share/postgresql';
+import { LoggerModule } from '$share/logger';
+import { TransporterModule } from '$share/transporter';
+import { PostgresqlModule, PoolService } from '$share/postgresql';
 
 @Module({
   exports: [

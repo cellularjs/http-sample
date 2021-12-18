@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { createNetWork } from '@cellularjs/net';
 import { blogAppNetwork } from '$share/network/blog.conf';
-import { articleRouter } from '@cell/article/gateway/http'
+import { articleRouter } from 'article/$gateway/article.http'
 
 (async () => {
   const app = express();

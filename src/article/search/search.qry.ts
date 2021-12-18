@@ -2,7 +2,7 @@ import { Service, ServiceHandler } from '@cellularjs/net';
 import { PoolService } from '$share/postgresql';
 
 @Service({ scope: 'publish' })
-export class List implements ServiceHandler {
+export class SearchQry implements ServiceHandler {
   constructor(
     private poolService: PoolService,
   ) { }

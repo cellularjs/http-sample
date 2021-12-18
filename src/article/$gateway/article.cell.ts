@@ -1,8 +1,9 @@
 import { Cell } from '@cellularjs/net';
-import { CommonModule } from '$share/common';
+import { CommonModule } from '$share/common/common.module';
 
 @Cell({
   imports: [CommonModule],
-  listen: './services',
+  providers: ['../'],
+  listen: '../',
 })
 export class ArticleCell {}

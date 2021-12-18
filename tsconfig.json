@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "rootDir": "./",
-    "outDir": "dist",
     "baseUrl": "./src",
     "sourceMap": true,
     "removeComments": false,
@@ -17,10 +16,6 @@
       "es7"
     ],
     "moduleResolution": "node",
-    "paths": {
-      "@cell/*": ["*"],
-      "@share/*": ["$share/*"]
-    }
   },
   "includes": [
     "./src/**/*",

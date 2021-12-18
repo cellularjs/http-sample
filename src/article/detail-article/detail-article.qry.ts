@@ -1,8 +1,9 @@
 import { Service, ServiceHandler, IRQ } from '@cellularjs/net';
 import { PoolService } from '$share/postgresql';
+import { ResourceNotFound } from '$share/message'
 
 @Service({ scope: 'publish' })
-export class Detail implements ServiceHandler {
+export class DetailArticleQry implements ServiceHandler {
   constructor(
     private poolService: PoolService,
     private irq: IRQ,
@@ -16,6 +17,12 @@ export class Detail implements ServiceHandler {
       values: [this.irq.body.id],
     });
 
-    return { rs: rs.rows[0] };
+    const dataItem = rs.rows[0];
+
+    if (!dataItem) {
+      throw new ResourceNotFound();
+    }
+
+    return { rs: dataItem };
   }
 }
