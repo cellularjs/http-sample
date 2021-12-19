@@ -63,5 +63,5 @@ module.exports = {
     //   script: './dist/lo/index.js',
     // }),
   ],
-  stats: 'none'
+  stats: 'errors-only'
 }
