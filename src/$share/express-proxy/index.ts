@@ -1,7 +1,7 @@
 import { IRQ, IRS } from '@cellularjs/net';
 import { Router, Response, Request } from 'express';
 import { TRACE_ID_KEY } from '$share/const'
-import { Transporter } from '$share/transporter'
+import { localTransporter } from '$share/transporter'
 import { v4 as uuidv4 } from 'uuid';
 
 // type CellList = keyof VirtualNetwork;
@@ -15,8 +15,6 @@ export function expressProxy(): ExpressProxy {
 }
 
 class ExpressProxy {
-  private static transporter = new Transporter();
-
   constructor(
     public router: Router,
   ) { }
@@ -51,7 +49,6 @@ class ExpressProxy {
 
   private _map(method, path, proxyTo) {
     const self = this;
-    const { transporter } = ExpressProxy;
 
     return this.router[method](path, async function (req: Request, res: Response) {
       // use base62
@@ -59,7 +56,7 @@ class ExpressProxy {
       let irs: IRS;
 
       try {
-        irs = await transporter.send(irq);
+        irs = await localTransporter.send(irq);
       } catch (error) {
         irs = error;
       }

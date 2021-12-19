@@ -1,6 +1,9 @@
-import { IRQ, send } from "@cellularjs/net";
+import { Request } from 'express';
 import { GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
+import { IRQ } from "@cellularjs/net";
 import { ArticleSchema } from '$share/type';
+import { localTransporter } from '$share/transporter';
+import { TRACE_ID_KEY } from '$share/const';
 
 const articleType = new GraphQLObjectType<ArticleSchema>({
   name: 'Article',
@@ -32,9 +35,9 @@ export const articleQuery = {
       type: GraphQLString,
     },
   },
-  resolve: async (_, args) => {
-    const irq = new IRQ({ to: 'Article:SearchQry'}, args);
-    const irs = await send(irq);
+  resolve: async (_, args, req: Request) => {
+    const irq = new IRQ({ to: 'Article:SearchQry', [TRACE_ID_KEY]: req.headers[TRACE_ID_KEY]}, args);
+    const irs = await localTransporter.send(irq);
 
     return irs.body.rs;
   },
