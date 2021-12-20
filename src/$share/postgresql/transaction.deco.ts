@@ -16,7 +16,7 @@ class TransactionProxy implements ServiceHandler {
     try {
       await client.query('BEGIN');
 
-      const irs = await nextHandler.exec();
+      const irs = await nextHandler.handle();
 
       await client.query('COMMIT');
 
