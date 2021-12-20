@@ -2,7 +2,6 @@ import * as express from 'express';
 import { createNetWork } from '@cellularjs/net';
 import { blogAppNetwork } from '$share/network/blog.conf';
 import { articleRouter } from 'article/$gateway/article.http';
-import { graphRouter } from 'graph/$gateway/graph.http';
 
 (async () => {
   const app = express();
@@ -12,9 +11,8 @@ import { graphRouter } from 'graph/$gateway/graph.http';
   app.disable('x-powered-by');
 
   app.use('/api/article', articleRouter);
-  app.use('/graphql', graphRouter);
 
   await createNetWork(blogAppNetwork);
 
-  app.listen(3001, () => console.log('Ready for http request (port: 3001)'));
+  app.listen(3002, () => console.log('Ready for http request (port: 3002)'));
 })();

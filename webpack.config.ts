@@ -9,20 +9,36 @@ const WebpackBar = require('webpackbar');
 
 const {
   NODE_ENV = 'production',
+  GATEWAY_SCRIPT = './http/index.ts'
 } = process.env;
 
-const services = fs.readdirSync('./src/$gateway')
-  .reduce((acc, v) => ({ ...acc, [v]: `./src/$gateway/${v}` }), {});
+const gatewayScriptArr = GATEWAY_SCRIPT.split('/');
+
+if (gatewayScriptArr.length < 2) {
+  console.error('> Incorrect gateway script. Valid GATEWAY_SCRIPT must be look like this: "./index.ts" or "./http/index.ts"');
+  process.exit(1);
+}
+
+const appName = gatewayScriptArr.length > 2
+  // use parent folder name
+  ? gatewayScriptArr[gatewayScriptArr.length - 2]
+  // use file name
+  : gatewayScriptArr[gatewayScriptArr.length - 1].split('.')[0];
+
+const dist = path.resolve(__dirname, 'dist');
+const bundleFile = 'index.js'
 
 module.exports = {
-  entry: services,
+  entry: {
+    [appName]: path.resolve('./src/$gateway', GATEWAY_SCRIPT)
+  },
   mode: NODE_ENV,
   target: 'node',
   devtool: 'source-map',
   watch: true,
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name]/index.js',
+    path: dist,
+    filename: `[name]/${bundleFile}`,
   },
   optimization: {
     minimize: false,
@@ -53,15 +69,10 @@ module.exports = {
   externals: [nodeExternals()],
   plugins: [
     new WebpackBar(),
-    new NodemonPlugin(),
-    // new NodemonPlugin({
-    //   ext: 'js',
-    //   script: './dist/yo/index.js',
-    // }),
-    // new NodemonPlugin({
-    //   ext: 'js',
-    //   script: './dist/lo/index.js',
-    // }),
+    new NodemonPlugin({
+      ext: 'js',
+      script: path.resolve(dist, appName, bundleFile),
+    }),
   ],
   stats: 'errors-only'
 }

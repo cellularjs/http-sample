@@ -4,10 +4,24 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "CellularJS: launch",
+      "name": "HTTP app",
       "runtimeExecutable": "yarn",
       "runtimeArgs": [ "start" ],
       "console": "integratedTerminal",
+      "env": {
+        "GATEWAY_SCRIPT": "./http/index.ts"
+      },
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Yolo app",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [ "start" ],
+      "console": "integratedTerminal",
+      "env": {
+        "GATEWAY_SCRIPT": "./yolo/index.ts",
+      },
     },
   ],
 }
