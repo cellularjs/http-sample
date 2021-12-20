@@ -73,6 +73,6 @@ class ExpressProxy {
   }
 
   private toJsonResponse(irq: IRQ, irs: IRS, res: Response) {
-    res.status(irs.header?.status || 500).header('X-Trace-Id', irq.header.id).json(irs.body);
+    res.status(irs.header?.status || 500).header(TRACE_ID_KEY, irq.header.id).json(irs.body);
   }
 }
