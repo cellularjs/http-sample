@@ -2,6 +2,7 @@ import { Module, OnInit } from '@cellularjs/di';
 import { LoggerModule } from '$share/logger';
 import { TransporterModule } from '$share/transporter';
 import { PostgresqlModule, PoolService } from '$share/postgresql';
+import { threadId } from 'worker_threads'
 
 @Module({
   exports: [
@@ -29,6 +30,6 @@ export class CommonModule implements OnInit {
     const client = await this.poolService.pool.connect();
     client.release();
 
-    console.log('Connect to database successfully!')
+    console.log(`CommonModule: connect to database successfully(Thread ID: ${threadId}).`)
   }
 }

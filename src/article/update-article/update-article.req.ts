@@ -12,11 +12,9 @@ export interface UpdateArticleReq {
 export class UpdateArticleReq {
   constructor(irq: IRQ) {
     if (!irq.body.title) {
-      throw new BadRequest({
-        errs: [
-          { src: 'title', err: 'REQUIRED' },
-        ],
-      });
+      throw new BadRequest([
+        { src: 'title', err: 'REQUIRED' },
+      ]);
     }
 
     Object.assign(this, irq.body);

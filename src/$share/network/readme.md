@@ -1,0 +1,1 @@
+IMPORTANT: If you want to use index file here you must be sure that bundler can use tree-shaking.

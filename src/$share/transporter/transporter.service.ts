@@ -1,6 +1,7 @@
 import { Injectable } from '@cellularjs/di';
 import { send, CellContext, getResolvedCell, IRQ, LOCAL_DRIVER } from '@cellularjs/net';
 import { TRACE_ID_KEY } from '$share/const'
+import { sendViaWorker } from 'worker';
 
 @Injectable()
 export class Transporter {
@@ -9,14 +10,18 @@ export class Transporter {
     private inCommingIrq?: IRQ,
   ) { }
 
-  async send(irq: IRQ) {
-    const irqWithId = this.requestWithId(irq);
+  sendViaWorker = async (irq: IRQ) => {
+    const modifiedIRQ = this.modifyIRQ(irq);
+    return sendViaWorker(modifiedIRQ);
+  }
+
+  send = async (irq: IRQ) => {
+    const modifiedIRQ = this.modifyIRQ(irq);
+
     try {
       const driver = this.specifyDriver(irq);
-      return await send(irqWithId, {
-        refererCell: this.cellCtx,
+      return await send(modifiedIRQ, {
         driver,
-        throwOriginalError: true,
       });
 
     } catch (errIrs) {
@@ -30,24 +35,26 @@ export class Transporter {
 
       throw errIrs.withHeaderItem(
         TRACE_ID_KEY,
-        irqWithId.header[TRACE_ID_KEY],
+        modifiedIRQ.header[TRACE_ID_KEY],
       );
     }
   }
 
-  private requestWithId(irq: IRQ) {
+  private modifyIRQ(irq: IRQ) {
     if (irq.header[TRACE_ID_KEY]) {
-      return irq;
+      return irq.withHeaderItem('referer', this.cellCtx?.cellName);
     }
 
     // if (!this.inCommingIrq?.header[TRACE_ID_KEY]) {
     //   return irq.withHeaderItem(TRACE_ID_KEY, uuidv4());
     // }
 
-    return irq.withHeaderItem(
-      TRACE_ID_KEY,
-      this.inCommingIrq.header[TRACE_ID_KEY],
-    );
+    return irq
+      .withHeaderItem('referer', this.cellCtx?.cellName)
+      .withHeaderItem(
+        TRACE_ID_KEY,
+        this.inCommingIrq.header[TRACE_ID_KEY],
+      );
   }
 
   private specifyDriver(irq: IRQ) {
