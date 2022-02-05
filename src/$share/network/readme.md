@@ -1,1 +1,1 @@
-IMPORTANT: If you want to use index file here you must be sure that bundler can use tree-shaking.
+IMPORTANT: If you want to use index file to export network config, you must ensure that bundler can use tree-shaking.

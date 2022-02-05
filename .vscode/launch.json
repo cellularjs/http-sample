@@ -5,23 +5,19 @@
       "type": "node",
       "request": "launch",
       "name": "HTTP app",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": [ "start" ],
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/@cellularjs/cli/dist/cmd/index.js",
+      "args": ["dev", "-e", "http"],
       "console": "integratedTerminal",
-      "env": {
-        "GATEWAY_SCRIPT": "./http/index.ts"
-      },
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Yolo app",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": [ "start" ],
+      "name": "Halo app",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/@cellularjs/cli/dist/cmd/index.js",
+      "args": ["dev", "-e", "halo"],
       "console": "integratedTerminal",
-      "env": {
-        "GATEWAY_SCRIPT": "./yolo/index.ts",
-      },
     },
   ],
 }

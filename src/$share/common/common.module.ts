@@ -3,6 +3,7 @@ import { LoggerModule } from '$share/logger';
 import { TransporterModule } from '$share/transporter';
 import { PostgresqlModule, PoolService } from '$share/postgresql';
 import { threadId } from 'worker_threads'
+// import { exit } from 'process';
 
 @Module({
   exports: [
@@ -23,7 +24,12 @@ export class CommonModule implements OnInit {
   ) { }
 
   async onInit() {
-    await this.checkDbConnect();
+    try {
+      await this.checkDbConnect();
+    } catch (err) {
+      console.log(`CommonModule: failed to connect to DB: ${(err as Error).message}`);
+      // exit(1);
+    }
   }
 
   private async checkDbConnect() {

@@ -3,6 +3,8 @@ import { createNetWork } from '@cellularjs/net';
 import { blogAppNetwork } from '$share/network/blog.conf';
 import { articleRouter } from 'article/$gateway/article.http';
 
+const haloPort = process.env.HALO_PORT;
+
 (async () => {
   const app = express();
 
@@ -14,5 +16,5 @@ import { articleRouter } from 'article/$gateway/article.http';
 
   await createNetWork(blogAppNetwork);
 
-  app.listen(3002, () => console.log('Ready for http request (port: 3002)'));
+  app.listen(haloPort, () => console.log(`Halo Gateway: ready for http request (port: ${haloPort})`));
 })();
