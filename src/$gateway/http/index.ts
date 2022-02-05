@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { createNetWork } from '@cellularjs/net';
-import { createNetWorkers, initNetWorker } from 'worker'
+import { createNetWorkers, initNetWorker } from '$share/worker'
 import { blogAppNetwork } from '$share/network/blog.conf';
 import { articleRouter } from 'article/$gateway/article.http';
 import { graphRouter } from 'graph/$gateway/graph.http';

@@ -1,7 +1,7 @@
 import { Injectable } from '@cellularjs/di';
 import { send, CellContext, getResolvedCell, IRQ, LOCAL_DRIVER } from '@cellularjs/net';
 import { TRACE_ID_KEY } from '$share/const'
-import { sendViaWorker } from 'worker';
+import { sendViaWorker } from '$share/worker';
 
 @Injectable()
 export class Transporter {
