@@ -1,6 +1,6 @@
-import { expressProxy } from '$share/express-proxy';
+import { expressJsonProxy } from '$share/express-proxy';
 
-const articleProxy = expressProxy();
+const articleProxy = expressJsonProxy();
 
 articleProxy.get('/create', 'Article:CreateArticleCmd');
 

@@ -27,7 +27,7 @@ export class CommonModule implements OnInit {
     try {
       await this.checkDbConnect();
     } catch (err) {
-      console.log(`CommonModule: failed to connect to DB: ${(err as Error).message}`);
+      console.log(`CommonModule: failed to connect to DB - ${(err as Error).message}`);
       // exit(1);
     }
   }

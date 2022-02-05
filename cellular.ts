@@ -2,8 +2,8 @@ import { CellularConfig } from '@cellularjs/cli';
 
 const cellularConfig: CellularConfig = {
   entry: {
-    http: './src/$gateway/http/index.ts',
-    halo: './src/$gateway/halo/index.ts',
+    crud: './src/$gateway/crud/index.ts',
+    worker: './src/$gateway/worker/index.ts',
   },
 };
 

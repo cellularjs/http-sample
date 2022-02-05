@@ -1,9 +1,10 @@
 import * as express from 'express';
 import { createNetWork } from '@cellularjs/net';
-import { blogAppNetwork } from '$share/network/blog.conf';
+import { blogAppNetwork } from '$share/network/blog.net';
 import { articleRouter } from 'article/$gateway/article.http';
+import { graphRouter } from 'graph/$gateway/graph.http';
 
-const haloPort = process.env.HALO_PORT;
+const crudHttpPort = process.env.CRUD_HTTP_PORT;
 
 (async () => {
   const app = express();
@@ -12,9 +13,10 @@ const haloPort = process.env.HALO_PORT;
   app.use(express.json());
   app.disable('x-powered-by');
 
+  app.use('/api/graphql', graphRouter);
   app.use('/api/article', articleRouter);
 
   await createNetWork(blogAppNetwork);
 
-  app.listen(haloPort, () => console.log(`Halo Gateway: ready for http request (port: ${haloPort})`));
+  app.listen(crudHttpPort, () => console.log(`HTTP Gateway: ready for http request (port: ${crudHttpPort})`));
 })();

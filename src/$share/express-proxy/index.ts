@@ -4,11 +4,7 @@ import { TRACE_ID_KEY } from '$share/const'
 import { localTransporter } from '$share/transporter'
 import { v4 as uuidv4 } from 'uuid';
 
-// type CellList = keyof VirtualNetwork;
-// type Route<CellName extends CellList = CellList> =
-//   CellName extends string ? `${CellName}:${VirtualNetwork[CellName]}` : any;
-
-export function expressProxy(): ExpressProxy {
+export function expressJsonProxy(): ExpressProxy {
   const router = Router();
 
   return new ExpressProxy(router);

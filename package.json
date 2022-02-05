@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev:http": "cellular dev -e http",
-    "dev:halo": "cellular dev -e halo",
-    "build:http": "cellular build -e http",
-    "build:halo": "cellular build -e yalo"
+    "dev:crud": "cellular dev -e crud",
+    "dev:worker": "cellular dev -e worker",
+    "build:crud": "cellular build -e crud",
+    "build:worker": "cellular build -e worker"
   },
   "dependencies": {
     "@cellularjs/di": "^0.1.0",
