@@ -1,7 +1,6 @@
-import { expressJsonProxy } from '$share/express-proxy';
+import { Router } from 'express';
+import { proxyTo } from '$share/express-proxy';
 
-const workerProxy = expressJsonProxy();
+export const workerRouter = Router();
 
-workerProxy.get('/test', 'Worker:TestQry');
-
-export const workerRouter = workerProxy.router;
+workerRouter.get('/test', proxyTo('Worker:TestQry'));

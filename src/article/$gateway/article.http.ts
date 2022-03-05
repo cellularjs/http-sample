@@ -1,15 +1,14 @@
-import { expressJsonProxy } from '$share/express-proxy';
+import { Router } from 'express';
+import { proxyTo } from '$share/express-proxy';
 
-const articleProxy = expressJsonProxy();
+export const articleRouter = Router();
 
-articleProxy.get('/create', 'Article:CreateArticleCmd');
+articleRouter.get('/create', proxyTo('Article:CreateArticleCmd'));
 
-articleProxy.get('/update', 'Article:UpdateArticleCmd');
+articleRouter.get('/update', proxyTo('Article:UpdateArticleCmd'));
 
-articleProxy.get('/delete', 'Article:DeleteArticleCmd');
+articleRouter.get('/delete', proxyTo('Article:DeleteArticleCmd'));
 
-articleProxy.get('/search', 'Article:SearchQry');
+articleRouter.get('/search', proxyTo('Article:SearchQry'));
 
-articleProxy.get('/detail', 'Article:DetailArticleQry');
-
-export const articleRouter = articleProxy.router;
+articleRouter.get('/detail', proxyTo('Article:DetailArticleQry'));
