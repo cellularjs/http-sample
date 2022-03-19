@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@cellularjs/cli@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@cellularjs/cli/-/cli-0.3.0.tgz#131541f534cc1dd90ac0d73005f215b9f0595e01"
-  integrity sha512-3D3toxM8yeCZaQ9on0Mz8desoFX6zaZXgRw0wAqRoNFeRDK1ClOeC9jPYuDyu94taxu3ojZ9MQeuDRpnhwH5MA==
+"@cellularjs/cli@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@cellularjs/cli/-/cli-0.5.0.tgz#05184965a82554049a7fd1d2c63b49de14814d97"
+  integrity sha512-gIAtXzm78VDHf8NbsAhXpF/VQJ0dKRNOAJhvktxOq+lXbI5taqzt7GCVJo9pdmnh7tR/OMDFMLY9EfFM54Hpbw==
   dependencies:
     chalk "4"
     clui "^0.3.6"
@@ -24,23 +24,24 @@
     webpack-node-externals "^3.0.0"
     webpackbar "^5.0.2"
 
-"@cellularjs/di@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@cellularjs/di/-/di-0.3.0.tgz#41297a4eb6e3b3f9adf0e7309d8c287b5e19193e"
-  integrity sha512-s1hf/ndRGsl1kWwJLV8j1GF4W6RsPi2OJmZC7URtm1Sqcnpm+UHZXiJ+Vv5h/ErBT7xrRV+ejJvW+JeOo1gcMA==
+"@cellularjs/di@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@cellularjs/di/-/di-0.5.0.tgz#fc950fa22cc6a3b382f709a8b99bf3555dede991"
+  integrity sha512-nSEzcu6hIbjUFFMTqYtASkAp3AYj4Z0DT2AqOgF3tu3/lfFKSfhIig9NrdwDXIxeGuQ2ptUzXzNgdc5Q06+F0g==
   dependencies:
     reflect-metadata "^0.1.13"
 
-"@cellularjs/express-proxy@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@cellularjs/express-proxy/-/express-proxy-0.3.0.tgz#902fcf92592e05e2800c74901dc16d90ec7dad05"
-  integrity sha512-3Ve0QviOYmEa28K9FnQLUgCbjnlNB3fCiBs+MXIJK53Ta8WcAAfCd7qrrH3/BpGRBkA810Qnc3CeGRUffmq36A==
+"@cellularjs/express-proxy@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@cellularjs/express-proxy/-/express-proxy-0.5.0.tgz#0c6737d60bd59e99f37bc94ee6be636e14122cd9"
+  integrity sha512-d4+LSbX8IWpmNHYvlGVpMulVHXGwehsn+fJIbS9c7Fk51ZRH7pKLwDbHnCvf+GAh7IjPVdsw4LPGfhaJQFbfAQ==
 
-"@cellularjs/net@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@cellularjs/net/-/net-0.3.0.tgz#441f84bbd7cdc2eb604a6a4de61db6acd01c31b2"
-  integrity sha512-KdfdGwlxzPOyvE+l7ZDgjGoscQGmE5ytg8r+kp0wBizaEf7PTggk2EOtzFOZWXh/tNIa31c7UVwfN/Yh7mc7zA==
+"@cellularjs/net@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@cellularjs/net/-/net-0.5.0.tgz#5ab2056eba104003e8d5b9ecf13ceed59c6f3fa0"
+  integrity sha512-DXLdYAD1PVUg/Z74NH9HQ/TwhHPcDxm3cEcYE2fgcdAk7Z0cqYGcXFrRlIakTKnupKoSqPhf1IcKS6+aHRvsgQ==
   dependencies:
+    "@cellularjs/di" "^0.5.0"
     emittery "^0.10.0"
 
 "@cspotcode/source-map-consumer@0.8.0":
