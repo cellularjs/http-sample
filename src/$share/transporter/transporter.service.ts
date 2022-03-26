@@ -1,18 +1,17 @@
 import { Injectable } from '@cellularjs/di';
-import { send, CellContext, getResolvedCell, IRQ, LOCAL_DRIVER } from '@cellularjs/net';
+import { send, getResolvedCell, IRQ, LOCAL_DRIVER } from '@cellularjs/net';
+import { transfer } from '@cellularjs/worker';
 import { TRACE_ID_KEY } from '$share/const'
-import { sendViaWorker } from '$share/worker';
 
 @Injectable()
 export class Transporter {
   constructor(
-    private cellCtx?: CellContext,
     private inCommingIrq?: IRQ,
   ) { }
 
   sendViaWorker = async (irq: IRQ) => {
     const modifiedIRQ = this.modifyIRQ(irq);
-    return sendViaWorker(modifiedIRQ);
+    return transfer(modifiedIRQ);
   }
 
   send = async (irq: IRQ) => {
@@ -42,7 +41,7 @@ export class Transporter {
 
   private modifyIRQ(irq: IRQ) {
     if (irq.header[TRACE_ID_KEY]) {
-      return irq.withHeaderItem('referer', this.cellCtx?.cellName);
+      return irq.withHeaderItem('referer', this.inCommingIrq?.header.to);
     }
 
     // if (!this.inCommingIrq?.header[TRACE_ID_KEY]) {
@@ -50,7 +49,7 @@ export class Transporter {
     // }
 
     return irq
-      .withHeaderItem('referer', this.cellCtx?.cellName)
+      .withHeaderItem('referer', this.inCommingIrq?.header.to)
       .withHeaderItem(
         TRACE_ID_KEY,
         this.inCommingIrq.header[TRACE_ID_KEY],
@@ -58,12 +57,15 @@ export class Transporter {
   }
 
   private specifyDriver(irq: IRQ) {
-    if (!this.cellCtx) {
+    if (!this.inCommingIrq) {
       return LOCAL_DRIVER;
     }
 
-    const fromSpace = getResolvedCell(this.cellCtx.cellName).spaceId;
-    const toSpace = getResolvedCell(irq.header.to.split(':')[0]).spaceId;
+    const fromCell = this.inCommingIrq.header.to.split(':')[0];
+    const toCell = irq.header.to.split(':')[0];
+
+    const fromSpace = getResolvedCell(fromCell).spaceId;
+    const toSpace = getResolvedCell(toCell).spaceId;
 
     if (fromSpace !== toSpace) {
       return 'remote'; // 'ssh', '***'

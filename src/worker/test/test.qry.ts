@@ -24,6 +24,6 @@ export class TestQry implements ServiceHandler {
       sendViaWorker(heavyTask), sendViaWorker(heavyTask), sendViaWorker(heavyTask),
     ]);
 
-    return true;
+    return 'You can open `src\worker\test\test.qry.ts` and change `sendViaWorker` with `send` to see the different between two';
   }
 }

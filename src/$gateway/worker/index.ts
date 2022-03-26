@@ -1,16 +1,13 @@
 import * as express from 'express';
 import { createNetWork } from '@cellularjs/net';
-import { createNetWorkers, initNetWorker } from '$share/worker'
+import { createCluster, initNetWorker } from '@cellularjs/worker'
 import { workerSampleNetwork } from '$share/network/worker-sample.net';
 import { workerRouter } from 'worker/$gateway/worker.http';
-import { isMainThread, threadId } from 'worker_threads';
+import { isMainThread } from 'worker_threads';
 
 const workerHttpPort = process.env.WORKER_HTTP_PORT;
 
-!isMainThread && initNetWorker(async () => {
-  await createNetWork(workerSampleNetwork);
-  console.log(`(Thread ID: ${threadId}) Ready`)
-});
+!isMainThread && initNetWorker(workerSampleNetwork);
 
 isMainThread && (async () => {
   const app = express();
@@ -21,7 +18,12 @@ isMainThread && (async () => {
 
   app.use('/api/worker', workerRouter);
 
-  await createNetWorkers(__filename, 30);
+  // For simplicity, in this example, we use current file as worker script.
+  await createCluster({
+    script: __filename,
+    minThread: 30,
+  });
+
   await createNetWork(workerSampleNetwork);
 
   app.listen(workerHttpPort, () => console.log(`Worker sample: ready for http request (port: ${workerHttpPort})`));
