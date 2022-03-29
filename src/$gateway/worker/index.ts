@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { createNetWork } from '@cellularjs/net';
-import { createCluster, initNetWorker } from '@cellularjs/worker'
+import { createPool, initNetWorker } from '@cellularjs/worker'
 import { workerSampleNetwork } from '$share/network/worker-sample.net';
 import { workerRouter } from 'worker/$gateway/worker.http';
 import { isMainThread } from 'worker_threads';
@@ -19,7 +19,7 @@ isMainThread && (async () => {
   app.use('/api/worker', workerRouter);
 
   // For simplicity, in this example, we use current file as worker script.
-  await createCluster({
+  await createPool({
     script: __filename,
     minThread: 30,
   });
