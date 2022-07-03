@@ -4,8 +4,7 @@ import { createPool, initNetWorker } from '@cellularjs/worker'
 import { workerSampleNetwork } from '$share/network/worker-sample.net';
 import { workerRouter } from 'worker/$gateway/worker.http';
 import { isMainThread } from 'worker_threads';
-
-const workerHttpPort = process.env.WORKER_HTTP_PORT;
+import { env } from '$share/env';
 
 !isMainThread && initNetWorker(workerSampleNetwork);
 
@@ -26,5 +25,7 @@ isMainThread && (async () => {
 
   await createNetWork(workerSampleNetwork);
 
-  app.listen(workerHttpPort, () => console.log(`Worker sample: ready for http request (port: ${workerHttpPort})`));
+  const port = env().WORKER_HTTP_PORT;
+
+  app.listen(port, () => console.log(`Worker sample: ready for http request (port: ${port})`));
 })();

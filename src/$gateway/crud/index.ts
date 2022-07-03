@@ -3,8 +3,7 @@ import { createNetWork } from '@cellularjs/net';
 import { blogAppNetwork } from '$share/network/blog.net';
 import { articleRouter } from 'article/$gateway/article.http';
 import { graphRouter } from 'graph/$gateway/graph.http';
-
-const crudHttpPort = process.env.CRUD_HTTP_PORT;
+import { env } from '$share/env';
 
 (async () => {
   const app = express();
@@ -18,5 +17,7 @@ const crudHttpPort = process.env.CRUD_HTTP_PORT;
 
   await createNetWork(blogAppNetwork);
 
-  app.listen(crudHttpPort, () => console.log(`HTTP Gateway: ready for http request (port: ${crudHttpPort})`));
+  const port = env().CRUD_HTTP_PORT;
+
+  app.listen(port, () => console.log(`HTTP Gateway: ready for http request (port: ${port})`));
 })();

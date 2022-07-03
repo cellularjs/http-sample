@@ -3,18 +3,20 @@ import { LoggerModule } from '$share/logger';
 import { TransporterModule } from '$share/transporter';
 import { PostgresqlModule, PoolService } from '$share/postgresql';
 import { threadId } from 'worker_threads'
+import { EnvModule, Env, env } from '$share/env';
 // import { exit } from 'process';
 
 @Module({
   exports: [
+    EnvModule.config({ token: Env }),
     LoggerModule.config(),
     TransporterModule,
     PostgresqlModule.config({
-      host: 'localhost',
-      port: 5432,
-      database: 'cellularjs_blog',
-      user: 'postgres',
-      password: '123456',
+      host: env().DB_HOST,
+      port: env().DB_PORT,
+      database: env().DB_NAME,
+      user: env().DB_USER,
+      password: env().DB_PASSWORD,
     }),
   ],
 })
