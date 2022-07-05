@@ -1,10 +1,8 @@
-import { Module, OnInit } from '@cellularjs/di';
+import { Module } from '@cellularjs/di';
 import { LoggerModule } from '$share/logger';
 import { TransporterModule } from '$share/transporter';
-import { PostgresqlModule, PoolService } from '$share/postgresql';
-import { threadId } from 'worker_threads'
+import { PostgresqlModule } from '$share/postgresql';
 import { EnvModule, Env, env } from '$share/env';
-// import { exit } from 'process';
 
 @Module({
   exports: [
@@ -20,24 +18,4 @@ import { EnvModule, Env, env } from '$share/env';
     }),
   ],
 })
-export class CommonModule implements OnInit {
-  constructor(
-    private poolService: PoolService,
-  ) { }
-
-  async onInit() {
-    try {
-      await this.checkDbConnect();
-    } catch (err) {
-      console.log(`CommonModule: failed to connect to DB - ${(err as Error).message}`);
-      // exit(1);
-    }
-  }
-
-  private async checkDbConnect() {
-    const client = await this.poolService.pool.connect();
-    client.release();
-
-    console.log(`CommonModule: connect to database successfully(Thread ID: ${threadId}).`)
-  }
-}
+export class CommonModule { }
