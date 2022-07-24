@@ -1,1 +1,2 @@
-export { LoggerModule } from './logger.module';
+export { LoggerModule, getLogger } from './logger.module';
+export { Logger } from './logger.class';

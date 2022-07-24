@@ -3,6 +3,7 @@ import { Module, ExtModuleMeta, OnInit } from '@cellularjs/di';
 import { PoolConfig } from './key.const';
 import { PoolHolder } from './pool-holder.service';
 import { PoolService } from './pool.service';
+import { LoggerModule, Logger } from '$share/logger';
 
 @Module({})
 export class PostgresqlModule {
@@ -20,10 +21,12 @@ function getRealPostgresqlModule(poolConfig: PoolConfig) {
       { token: PoolConfig, useValue: poolConfig },
       { token: PoolHolder, useClass: PoolHolder, cycle: 'permanent' },
     ],
+    imports: [LoggerModule],
     exports: [PoolService],
   })
   class RealPostgresqlModule implements OnInit {
     constructor(
+      private logger: Logger,
       private poolService: PoolService,
     ) { }
 
@@ -31,7 +34,7 @@ function getRealPostgresqlModule(poolConfig: PoolConfig) {
       try {
         await this.checkDbConnect();
       } catch (err) {
-        console.log(`PostgresqlModule: failed to connect to DB`);
+        this.logger.error(`PostgresqlModule - failed to connect to DB - ${(err as Error).message}`);
         throw err;
       }
     }
@@ -40,7 +43,7 @@ function getRealPostgresqlModule(poolConfig: PoolConfig) {
       const client = await this.poolService.pool.connect();
       client.release();
   
-      console.log(`PostgresqlModule: connect to database successfully(Thread ID: ${threadId}).`)
+      this.logger.info(`PostgresqlModule: connect to database successfully(Thread ID: ${threadId}).`)
     }
   }
 

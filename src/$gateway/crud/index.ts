@@ -4,6 +4,7 @@ import { blogAppNetwork } from '$share/network/blog.net';
 import { articleRouter } from 'article/$gateway/article.http';
 import { graphRouter } from 'graph/$gateway/graph.http';
 import { env } from '$share/env';
+import { getLogger } from '$share/logger';
 
 (async () => {
   const app = express();
@@ -19,5 +20,6 @@ import { env } from '$share/env';
 
   const port = env().CRUD_HTTP_PORT;
 
-  app.listen(port, () => console.log(`HTTP Gateway: ready for http request (port: ${port})`));
+  const logger = getLogger();
+  app.listen(port, () => logger.info(`App - ready for HTTP request (port: ${port})`));
 })();

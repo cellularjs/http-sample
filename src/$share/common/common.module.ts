@@ -7,7 +7,7 @@ import { EnvModule, Env, env } from '$share/env';
 @Module({
   exports: [
     EnvModule.config({ token: Env }),
-    LoggerModule.config(),
+    LoggerModule,
     TransporterModule,
     PostgresqlModule.config({
       host: env().DB_HOST,
